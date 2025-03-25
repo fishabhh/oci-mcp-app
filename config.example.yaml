@@ -1,0 +1,58 @@
+---
+# OCI MCP Server Configuration
+
+# Server settings
+server:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+  log_level: "info"  # debug, info, warning, error, critical
+
+# Security settings
+security:
+  secret_key: "your-secret-key-here"  # Change this to a secure random string
+  token_expiration_minutes: 60
+  cors_origins:
+    - "http://localhost:3000"
+    - "https://your-frontend-domain.com"
+
+# OCI configuration
+oci:
+  # Option 1: Path to OCI config file
+  config_file_path: "~/.oci/config"
+  profile_name: "DEFAULT"
+  
+  # Option 2: Direct configuration (if not using config file)
+  # user_ocid: "ocid1.user.oc1..example"
+  # fingerprint: "your-api-key-fingerprint"
+  # tenancy_ocid: "ocid1.tenancy.oc1..example"
+  # region: "us-ashburn-1"
+  # key_file_path: "~/.oci/oci_api_key.pem"
+
+# Resource defaults
+resources:
+  compute:
+    default_shape: "VM.Standard.E4.Flex"
+    default_os: "Oracle Linux"
+    default_os_version: "8"
+  
+  network:
+    default_vcn_cidr: "10.0.0.0/16"
+    default_subnet_cidr: "10.0.0.0/24"
+  
+  database:
+    default_db_system: "Autonomous Transaction Processing"
+    default_workload_type: "OLTP"
+
+# MCP server settings
+mcp:
+  max_concurrent_requests: 10
+  request_timeout_seconds: 300
+  max_resource_recommendation_count: 5
+
+# Logging configuration
+logging:
+  file_path: "logs/mcp_server.log"
+  max_size_mb: 10
+  backup_count: 5
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
